@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/japanese-word.schema.json",
+  "kanji": "猫",
+  "kana": "ねこ",
+  "type": "noun",
+  "meaning": "cat"
+}

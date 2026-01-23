@@ -1,0 +1,37 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/ordered-list.schema.json",
+  "name": "Ordered List Model",
+  "description": "A collection of items with explicit ordering. Uses the 'many' pattern to express multiple memberships in a single document.",
+  "version": "1.0.0",
+  "$defs": {
+    "itemCriteria": { "required": ["$id"] },
+    "positionData": { "type": "integer" }
+  },
+  "connectors": {
+    "item": {
+      "criteria": { "$ref": "#/$defs/itemCriteria" },
+      "description": "An item in the ordered list"
+    }
+  },
+  "data": {
+    "position": { "$ref": "#/$defs/positionData", "description": "Position in the list (0-indexed)" }
+  },
+  "many": {
+    "type": "array",
+    "items": { "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/manyItem" },
+    "itemConnectors": {
+      "$dynamicAnchor": "itemConnectors",
+      "properties": {
+        "item": { "$ref": "#/$defs/itemCriteria" }
+      },
+      "required": ["item"]
+    },
+    "itemData": {
+      "$dynamicAnchor": "itemData",
+      "properties": {
+        "position": { "$ref": "#/$defs/positionData" }
+      }
+    }
+  }
+}

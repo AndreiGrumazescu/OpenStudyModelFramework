@@ -1,0 +1,14 @@
+{
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/minimal_models/min-many.schema.json",
+  "connectors": {
+    "item": { "criteria": { "required": ["$id"] } }
+  },
+  "many": {
+    "type": "array",
+    "items": { "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/manyItem" },
+    "itemConnectors": {
+      "$dynamicAnchor": "itemConnectors",
+      "properties": {}
+    }
+  }
+}

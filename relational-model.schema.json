@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "title": "OSMF Relational Model",
+  "type": "object",
+  "description": "Schema for validating OSMF Relational Model definitions. A Relational Model defines a schema for modeling relationships between Documents, including both stored data and projections.",
+  "if": {
+    "not": { "required": ["projections"] }
+  },
+  "then": {
+    "required": ["connectors"],
+    "properties": {
+      "connectors": {
+        "additionalProperties": {
+          "required": ["criteria"],
+          "properties": {
+            "criteria": { "minProperties": 1 }
+          }
+        }
+      }
+    }
+  },
+  "required": ["$id"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to the OSMF meta-schema that validates this Model"
+    },
+    "$id": {
+      "type": "string",
+      "description": "Unique identifier for this Relational Model"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this Relational Model"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what relationships this Model defines"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version of this Relational Model"
+    },
+    "connectors": { "$ref": "#/$defs/connectors" },
+    "from": { "$ref": "#/$defs/from" },
+    "to": { "$ref": "#/$defs/to" },
+    "data": { "$ref": "#/$defs/data" },
+    "projections": { "$ref": "#/$defs/projections" },
+    "required": {
+      "type": "array",
+      "description": "Field names (from data or projections) that are required in documents implementing this model",
+      "items": { "type": "string" }
+    },
+    "many": {
+      "type": "object",
+      "description": "JSON Schema for validating the 'many' array in documents.",
+      "required": ["type", "items"],
+      "properties": {
+        "type": { "const": "array" },
+        "items": {
+          "type": "object",
+          "properties": {
+            "$ref": { "type": "string" }
+          }
+        },
+        "manyOverride": {
+          "type": "boolean",
+          "description": "Set to true to use a custom many schema instead of the standard manyItem. Skips all standard validation on items, itemConnectors, itemData, and itemProjections."
+        },
+        "itemConnectors": {
+          "type": "object",
+          "description": "JSON Schema for validating connectors in Document many items."
+        },
+        "itemData": {
+          "type": "object",
+          "description": "JSON Schema for validating data in Document many items."
+        },
+        "itemProjections": {
+          "type": "object",
+          "description": "JSON Schema for validating projections in Document many items."
+        }
+      },
+      "if": {
+        "not": {
+          "properties": { "manyOverride": { "const": true } },
+          "required": ["manyOverride"]
+        }
+      },
+      "then": {
+        "properties": {
+          "items": {
+            "required": ["$ref"],
+            "properties": {
+              "$ref": { "const": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/manyItem" }
+            }
+          },
+          "itemConnectors": {
+            "required": ["$dynamicAnchor", "properties"],
+            "properties": {
+              "$dynamicAnchor": { "const": "itemConnectors" },
+              "properties": { "type": "object" }
+            }
+          },
+          "itemData": {
+            "required": ["$dynamicAnchor", "properties"],
+            "properties": {
+              "$dynamicAnchor": { "const": "itemData" },
+              "properties": { "type": "object" }
+            }
+          },
+          "itemProjections": {
+            "required": ["$dynamicAnchor", "properties"],
+            "properties": {
+              "$dynamicAnchor": { "const": "itemProjections" },
+              "properties": { "type": "object" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "connectors": {
+      "type": "object",
+      "description": "Named connectors that participate in this relationship.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "criteria": {
+            "type": "object",
+            "description": "JSON Schema fragment defining required attributes for documents matching this connector."
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of this connector's role"
+          }
+        }
+      },
+      "minProperties": 1
+    },
+    "from": {
+      "type": "object",
+      "description": "JSON Schema for validating Document 'from' values. Must constrain to array of connector name strings."
+    },
+    "to": {
+      "type": "object",
+      "description": "JSON Schema for validating Document 'to' values. Must constrain to array of connector name strings."
+    },
+    "data": {
+      "type": "object",
+      "description": "Schema for literal data fields stored directly on this relationship.",
+      "additionalProperties": {
+        "type": "object",
+        "description": "JSON Schema for a stored data field"
+      }
+    },
+    "projections": {
+      "type": "object",
+      "description": "Projection slots that Documents must fill. Each slot must reference the standard projectionMapping schema unless refOverride is true.",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "$ref": {
+            "type": "string",
+            "description": "Must reference the projectionMapping definition"
+          },
+          "description": {
+            "type": "string",
+            "description": "Human-readable description of what this projection slot represents"
+          },
+          "refOverride": {
+            "type": "boolean",
+            "description": "Set to true to use a custom projection schema instead of the standard projectionMapping"
+          }
+        },
+        "if": {
+          "not": {
+            "properties": { "refOverride": { "const": true } },
+            "required": ["refOverride"]
+          }
+        },
+        "then": {
+          "required": ["$ref"],
+          "properties": {
+            "$ref": { "const": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping" }
+          }
+        }
+      }
+    },
+    "projectionMapping": {
+      "type": "object",
+      "description": "Standard projection mapping structure. Documents use this to specify which connector and field to pull data from.",
+      "required": ["connector", "field"],
+      "properties": {
+        "connector": {
+          "type": "string",
+          "description": "Name of the connector to pull data from"
+        },
+        "field": {
+          "type": "string",
+          "description": "Field name to extract from the connected document"
+        }
+      }
+    },
+    "manyItem": {
+      "type": "object",
+      "description": "Base schema for validating items in a Document's many array. Uses $dynamicRef to pull in Model-defined itemConnectors, itemData, itemProjections.",
+      "$defs": {
+        "defaultItemConnectors": {
+          "$dynamicAnchor": "itemConnectors",
+          "type": "object"
+        },
+        "defaultItemData": {
+          "$dynamicAnchor": "itemData",
+          "type": "object"
+        },
+        "defaultItemProjections": {
+          "$dynamicAnchor": "itemProjections",
+          "type": "object"
+        },
+        "defaultFrom": {
+          "$dynamicAnchor": "from",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "defaultTo": {
+          "$dynamicAnchor": "to",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "properties": {
+        "connectors": {
+          "type": "object",
+          "additionalProperties": { "type": "object" },
+          "$dynamicRef": "#itemConnectors"
+        },
+        "data": {
+          "type": "object",
+          "$dynamicRef": "#itemData"
+        },
+        "projections": {
+          "type": "object",
+          "$dynamicRef": "#itemProjections"
+        },
+        "from": {
+          "type": "array",
+          "items": { "type": "string" },
+          "$dynamicRef": "#from"
+        },
+        "to": {
+          "type": "array",
+          "items": { "type": "string" },
+          "$dynamicRef": "#to"
+        }
+      }
+    }
+  }
+}

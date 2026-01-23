@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/ordered-list.schema.json",
+  "$id": "jlpt-n5-word-order",
+  "many": [
+    { "connectors": { "item": { "$id": "neko" } }, "data": { "position": 0 } },
+    { "connectors": { "item": { "$id": "inu" } }, "data": { "position": 1 } },
+    { "connectors": { "item": { "$id": "sakana" } }, "data": { "position": 2 } },
+    { "connectors": { "item": { "$id": "tori" } }, "data": { "position": 3 } }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/srs-user-progress.schema.json",
+  "name": "SRS User Progress Model",
+  "description": "Tracks spaced repetition study progress between a user and content items",
+  "version": "1.0.0",
+  "connectors": {
+    "user": {
+      "criteria": {
+        "properties": {
+          "User_ID": { "type": "string", "description": "Unique identifier for the user" }
+        },
+        "required": ["User_ID"]
+      }
+    },
+    "content": {
+      "criteria": {
+        "properties": {
+          "Content_ID": { "type": "string", "description": "Unique identifier for the content item" }
+        },
+        "required": ["Content_ID"]
+      }
+    }
+  },
+  "from": {
+    "type": "array",
+    "items": { "enum": ["user"] }
+  },
+  "to": {
+    "type": "array",
+    "items": { "enum": ["content"] }
+  },
+  "data": {
+    "SRS_Interval": { "type": "integer", "description": "Days until next review" },
+    "easeFactor": { "type": "number", "description": "Multiplier for interval calculation" },
+    "repetitions": { "type": "integer", "description": "Number of successful reviews" },
+    "lastReviewed": { "type": "string", "format": "date-time", "description": "Timestamp of last review" }
+  },
+  "required": ["SRS_Interval"]
+}

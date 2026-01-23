@@ -1,0 +1,9 @@
+{
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/minimal_models/min-directionality.schema.json",
+  "connectors": {
+    "source": { "criteria": { "required": ["$id"] } },
+    "target": { "criteria": { "required": ["$id"] } }
+  },
+  "from": { "type": "array" },
+  "to": { "type": "array" }
+}

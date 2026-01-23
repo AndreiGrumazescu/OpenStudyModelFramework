@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/data-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/japanese-word.schema.json",
+  "name": "Japanese Word Model",
+  "description": "Data model for Japanese vocabulary words with kanji, kana readings, and grammatical type",
+  "version": "1.0.0",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "kanji": {
+        "type": "string",
+        "description": "The word written in kanji characters"
+      },
+      "kana": {
+        "type": "string",
+        "description": "The word written in hiragana/katakana (pronunciation)"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["noun", "verb", "adjective", "adverb", "particle", "expression"],
+        "description": "Grammatical type of the word"
+      },
+      "meaning": {
+        "type": "string",
+        "description": "English translation"
+      }
+    },
+    "required": ["kanji", "kana"]
+  }
+}

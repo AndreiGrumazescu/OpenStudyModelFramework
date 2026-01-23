@@ -1,0 +1,9 @@
+{
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/minimal_models/min-data.schema.json",
+  "connectors": {
+    "entity": { "criteria": { "required": ["$id"] } }
+  },
+  "data": {
+    "field": { "type": "string" }
+  }
+}

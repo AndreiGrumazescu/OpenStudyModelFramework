@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/template_models/pedagogy.template.schema.json",
+  "name": "Pedagogy Template",
+  "description": "Template for study mechanisms. Define projection slots for the data your pedagogy needs; Documents provide connectors and map projections to connector fields.",
+  "projections": {
+    "Stimulus": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping",
+      "description": "REPLACE: The prompt or question shown to the user"
+    },
+    "Response": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping",
+      "description": "REPLACE: The expected answer or feedback"
+    }
+  },
+  "required": ["Stimulus", "Response"]
+}

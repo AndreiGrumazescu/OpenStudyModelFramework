@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/binary-srs-flashcard.schema.json",
+  "connectors": {
+    "content": { "$id": "japanese-word-model-v1" },
+    "userState": { "$id": "srs-user-progress-model-v1" }
+  },
+  "projections": {
+    "Stimulus": { "connector": "content", "field": "kanji" },
+    "Response": { "connector": "content", "field": "kana" },
+    "SRS_Interval": { "connector": "userState", "field": "SRS_Interval" }
+  }
+}

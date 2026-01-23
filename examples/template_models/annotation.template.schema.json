@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/template_models/annotation.template.schema.json",
+  "name": "Annotation Template",
+  "description": "Template for attaching notes or metadata to content. An author creates an annotation on a target.",
+  "connectors": {
+    "author": {
+      "criteria": { "required": ["$id"] },
+      "description": "REPLACE: Criteria for the annotation author (user, system, etc.)"
+    },
+    "target": {
+      "criteria": { "required": ["$id"] },
+      "description": "REPLACE: Criteria for the content being annotated"
+    }
+  },
+  "data": {
+    "content": { "type": "string", "description": "REPLACE: The annotation content" },
+    "createdAt": { "type": "string", "format": "date-time", "description": "When the annotation was created" }
+  },
+  "required": ["content"]
+}

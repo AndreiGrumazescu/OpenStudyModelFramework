@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/srs-user-progress.schema.json",
+  "connectors": {
+    "user": { "User_ID": "101" },
+    "content": { "Content_ID": "neko" }
+  },
+  "from": ["user"],
+  "to": ["content"],
+  "data": {
+    "SRS_Interval": 1,
+    "easeFactor": 2.5,
+    "repetitions": 3,
+    "lastReviewed": "2026-01-15T10:30:00Z"
+  }
+}

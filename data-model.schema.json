@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/data-model.schema.json",
+  "title": "OSMF Data Model",
+  "type": "object",
+  "description": "Schema for validating OSMF Data Model definitions. A Data Model defines a JSON schema for a specific class of knowledge.",
+  "required": ["$id", "name", "schema"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Reference to the OSMF meta-schema that validates this Model"
+    },
+    "$id": {
+      "type": "string",
+      "description": "Unique identifier for this Data Model"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this Data Model"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what this Data Model represents"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this Data Model"
+    },
+    "schema": {
+      "type": "object",
+      "description": "The JSON Schema defining the structure of Data Documents that implement this Model",
+      "properties": {
+        "type": {
+          "enum": ["object", "array"]
+        },
+        "required": {
+          "type": "array",
+          "description": "List of required property names",
+          "items": { "type": "string" }
+        },
+        "properties": {
+          "type": "object",
+          "description": "Property definitions for the schema"
+        },
+        "additionalProperties": {
+          "type": "boolean",
+          "description": "Whether additional properties are allowed"
+        }
+      }
+    }
+  }
+}

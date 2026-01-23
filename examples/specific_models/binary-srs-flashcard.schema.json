@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/specific_models/binary-srs-flashcard.schema.json",
+  "name": "Binary SRS Flashcard Model",
+  "description": "A flashcard study mechanism with binary (correct/incorrect) responses and spaced repetition scheduling. This is a projection relation that maps content and user state into a study interface.",
+  "version": "1.0.0",
+  "projections": {
+    "Stimulus": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping",
+      "description": "The prompt shown to the user (must resolve to displayable content)"
+    },
+    "Response": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping",
+      "description": "The expected correct answer (must resolve to displayable content)"
+    },
+    "SRS_Interval": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping",
+      "description": "Days until next review (must resolve to integer)"
+    }
+  },
+  "required": ["Stimulus", "Response", "SRS_Interval"]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/template_models/ordered-list.template.schema.json",
+  "name": "Ordered List Template",
+  "description": "Template for ordered collections. Uses the many pattern to represent multiple items with explicit positions.",
+  "connectors": {
+    "item": {
+      "criteria": { "required": ["$id"] },
+      "description": "REPLACE: Criteria for items in this list"
+    }
+  },
+  "data": {
+    "position": { "type": "integer", "description": "Position in the list (0-indexed)" }
+  },
+  "many": {
+    "type": "array",
+    "items": { "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/manyItem" },
+    "itemConnectors": {
+      "$dynamicAnchor": "itemConnectors",
+      "properties": {
+        "item": { "required": ["$id"] }
+      },
+      "required": ["item"]
+    },
+    "itemData": {
+      "$dynamicAnchor": "itemData",
+      "properties": {
+        "position": { "type": "integer" }
+      },
+      "required": ["position"]
+    }
+  }
+}

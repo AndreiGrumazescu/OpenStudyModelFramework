@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json",
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/template_models/directed-edge.template.schema.json",
+  "name": "Directed Edge Template",
+  "description": "Template for directed graph relationships. Source points to target with optional edge data.",
+  "connectors": {
+    "source": {
+      "criteria": { "required": ["$id"] },
+      "description": "REPLACE: Criteria for the source node"
+    },
+    "target": {
+      "criteria": { "required": ["$id"] },
+      "description": "REPLACE: Criteria for the target node"
+    }
+  },
+  "from": {
+    "type": "array",
+    "items": { "enum": ["source"] },
+    "minItems": 1,
+    "maxItems": 1
+  },
+  "to": {
+    "type": "array",
+    "items": { "enum": ["target"] },
+    "minItems": 1,
+    "maxItems": 1
+  },
+  "data": {
+    "weight": { "type": "number", "description": "OPTIONAL: Edge weight or strength" }
+  }
+}

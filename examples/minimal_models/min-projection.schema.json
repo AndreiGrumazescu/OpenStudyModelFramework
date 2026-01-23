@@ -1,0 +1,8 @@
+{
+  "$id": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/examples/minimal_models/min-projection.schema.json",
+  "projections": {
+    "slot": {
+      "$ref": "https://raw.githubusercontent.com/AndreiGrumazescu/OpenStudyModelFramework/main/relational-model.schema.json#/$defs/projectionMapping"
+    }
+  }
+}
